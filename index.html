@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InsightCoach — Learning space</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500;1,8..60,600&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="app-shell">
+    <nav class="rail" aria-label="Menu">
+      <button class="rail-logo" id="rail-home" type="button" data-open-tab="learn" aria-label="Learning space">
+        <img src="assets/logo.png" alt="" width="32" height="40">
+      </button>
+      <span class="rail-rule" aria-hidden="true"></span>
+      <button class="rail-btn" type="button" data-open-tab="learn" aria-label="Learning space">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 3 10h2v9h5v-6h4v6h5v-9h2L12 3z"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-upload aria-label="Upload a file">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 16V7.83L8.41 10.4 7 9l5-5 5 5-1.41 1.41L13 7.83V16h-2zM5 18h14v2H5v-2z"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-open-tab="notes" aria-label="Saved notes">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM8 12h8v1.6H8V12zm0 3.4h8v1.6H8v-1.6z"/></svg>
+      </button>
+      <button class="rail-btn" type="button" data-open-tab="history" aria-label="History">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-2.34-5.66L15 9h6V3l-2.2 2.2A9.96 9.96 0 0 0 12 2zm-1 5h2v5.2l3.2 1.9-1 1.7-4.2-2.5V7z"/></svg>
+      </button>
+    </nav>
+
+    <aside class="side is-collapsed" id="side">
+      <section class="side-pane" data-side="notes">
+        <p class="side-kicker">Library</p>
+        <h2>Saved notes</h2>
+        <div id="side-notes"></div>
+        <p class="menu-empty" id="notes-side-empty" hidden>No notes yet.</p>
+      </section>
+    </aside>
+
+    <div class="stage-col">
+      <div class="tabbar" id="tabbar" hidden>
+        <div class="tab-strip" id="tab-strip" role="tablist" aria-label="Open tabs"></div>
+      </div>
+
+  <main id="main">
+    <section class="screen" id="workspace" aria-labelledby="workspace-title">
+      <div class="hero">
+        <p class="eyebrow">Your concept workspace</p>
+        <h1 id="workspace-title" tabindex="-1">Turn lecture notes into understanding.</h1>
+        <p class="lede">Start with your course material. Explore each step, question assumptions, and learn at your pace.</p>
+      </div>
+
+      <div class="col">
+        <div class="dropzone" id="dropzone">
+          <div class="drop-empty">
+            <div class="up-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 16V7.83L8.41 10.4 7 9l5-5 5 5-1.41 1.41L13 7.83V16h-2zm-6 4h14v-2H5v2z"/></svg>
+            </div>
+            <h2>Upload lecture notes or text here</h2>
+            <p class="drop-help">Drag and drop a file, paste with Ctrl or Cmd + V, or browse from your device.</p>
+          </div>
+          <div class="drop-filled">
+            <div class="filechip filechip-inset">
+              <svg class="doc" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h8l6 6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V9h5.5L13 3.5zM8 13h8v1.5H8V13zm0 3.5h8V18H8v-1.5z"/></svg>
+              <span class="filechip-text">
+                <strong id="chosen-name"></strong>
+                <span id="chosen-meta"></span>
+              </span>
+            </div>
+            <p class="excerpt" id="chosen-excerpt" hidden></p>
+            <button class="btn-quiet" id="remove-file" type="button" data-stop>Remove</button>
+          </div>
+          <button class="btn-choose" id="choose" type="button">+ Choose file</button>
+          <p class="fine">PDF, PPTX, PNG or JPG. Up to 200 MB. One concept at a time.</p>
+          <p class="file-error" id="file-error" role="alert" hidden></p>
+        </div>
+        <input id="file-input" type="file" accept=".pdf,.pptx,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" hidden>
+
+        <div class="depth-row">
+          <span id="depth-label">Depth</span>
+          <div class="segment" role="radiogroup" aria-labelledby="depth-label">
+            <button type="button" role="radio" data-depth="intuitive" aria-checked="false" tabindex="-1">Intuitive</button>
+            <button type="button" role="radio" data-depth="formal" aria-checked="false" tabindex="-1">Formal</button>
+            <button type="button" role="radio" data-depth="steps" aria-checked="true" tabindex="0">Step-by-Step</button>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <p>No grades, no pressure. Add your material to begin a guided explanation.</p>
+          <button class="btn-primary" id="build" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
+            Build my explanation
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="screen" id="preparing" hidden aria-labelledby="prep-title">
+      <div class="hero">
+        <p class="eyebrow">Building your explanation</p>
+        <h1 id="prep-title" tabindex="-1">Making the next step clearer.</h1>
+        <p class="lede">Reading your material so the answer can follow your question, one step at a time.</p>
+      </div>
+      <div class="col col-wide">
+        <div class="filechip">
+          <svg class="doc" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h8l6 6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V9h5.5L13 3.5zM8 13h8v1.5H8V13zm0 3.5h8V18H8v-1.5z"/></svg>
+          <span class="filechip-text">
+            <strong class="js-file-name">CS201_Queues.pdf</strong>
+            <span class="js-file-meta">3 slides · Queue processing · Week 04</span>
+          </span>
+        </div>
+        <blockquote class="asked">
+          <p class="kicker">Your question</p>
+          <p class="js-question"></p>
+        </blockquote>
+
+        <ol class="stages">
+          <li class="stage is-waiting" data-stage="0">
+            <div class="stage-top">
+              <span class="stage-icon" aria-hidden="true">
+                <svg class="i-wait" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <svg class="i-go" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a1 1 0 0 1 1 1v3.6l2.2 1.3a1 1 0 1 1-1 1.7l-2.7-1.6A1 1 0 0 1 11 12V8a1 1 0 0 1 1-1zm0-5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/></svg>
+                <svg class="i-done" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.09 4.6-4.59 1.4 1.42-6 5.98z"/></svg>
+              </span>
+              <h2 class="stage-title">Grounding concepts against slide context</h2>
+              <span class="stage-status">Up next</span>
+            </div>
+            <div class="bars" aria-hidden="true"><span class="w-full"></span><span class="w-86"></span><span class="w-64"></span></div>
+          </li>
+          <li class="stage is-waiting" data-stage="1">
+            <div class="stage-top">
+              <span class="stage-icon" aria-hidden="true">
+                <svg class="i-wait" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <svg class="i-go" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a1 1 0 0 1 1 1v3.6l2.2 1.3a1 1 0 1 1-1 1.7l-2.7-1.6A1 1 0 0 1 11 12V8a1 1 0 0 1 1-1zm0-5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/></svg>
+                <svg class="i-done" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.09 4.6-4.59 1.4 1.42-6 5.98z"/></svg>
+              </span>
+              <h2 class="stage-title">Organizing a step-by-step explanation</h2>
+              <span class="stage-status">Up next</span>
+            </div>
+            <div class="bars" aria-hidden="true"><span class="w-full"></span><span class="w-72"></span></div>
+          </li>
+          <li class="stage is-waiting" data-stage="2">
+            <div class="stage-top">
+              <span class="stage-icon" aria-hidden="true">
+                <svg class="i-wait" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+                <svg class="i-go" viewBox="0 0 24 24"><path fill="currentColor" d="M12 7a1 1 0 0 1 1 1v3.6l2.2 1.3a1 1 0 1 1-1 1.7l-2.7-1.6A1 1 0 0 1 11 12V8a1 1 0 0 1 1-1zm0-5a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/></svg>
+                <svg class="i-done" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.09 4.6-4.59 1.4 1.42-6 5.98z"/></svg>
+              </span>
+              <h2 class="stage-title">Surfacing assumptions and source references</h2>
+              <span class="stage-status">Up next</span>
+            </div>
+            <div class="bars" aria-hidden="true"><span class="w-92"></span><span class="w-48"></span></div>
+          </li>
+        </ol>
+
+        <div class="prep-bar">
+          <p>Checking context, not grading your knowledge.</p>
+          <button class="btn-cancel" id="cancel" type="button">Cancel preparation</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="explanation" hidden aria-labelledby="explain-title">
+      <div class="col col-wide explain-col">
+        <div class="filechip">
+          <svg class="doc" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 2h8l6 6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V9h5.5L13 3.5zM8 13h8v1.5H8V13zm0 3.5h8V18H8v-1.5z"/></svg>
+          <span class="filechip-text">
+            <strong class="js-file-name">CS201_Queues.pdf</strong>
+            <span class="js-file-meta">3 slides · Queue processing · Week 04</span>
+          </span>
+        </div>
+        <p class="own-note" id="own-note" hidden>These steps are the sample queues walkthrough, so Inspect and Flag can be tried on a known lecture.</p>
+        <p class="step-progress" id="step-progress" hidden>Your question</p>
+        <article class="step question-card is-current" id="question-card">
+          <h1 class="question-text js-question" id="explain-title" tabindex="-1"></h1>
+          <div class="step-gate" id="question-gate">
+            <button class="btn-primary btn-small" id="question-continue" type="button">See the answer</button>
+          </div>
+        </article>
+        <ol class="steps" id="steps"></ol>
+        <form class="deeper-inline" id="deeper-form" hidden>
+          <label class="field-label" for="deeper-ask">Go deeper</label>
+          <div class="deeper-inline-row">
+            <textarea id="deeper-ask" rows="1" maxlength="400" placeholder="The front index, an analogy, why empty and full differ…"></textarea>
+            <button class="btn-primary btn-small" type="submit">Answer in a new tab</button>
+          </div>
+          <p class="form-error" id="deeper-error" role="alert" hidden></p>
+        </form>
+        <section class="notes-composer" id="save-bar" hidden aria-labelledby="save">
+          <div class="save-row">
+            <button class="btn-primary" id="save" type="button">Add to notes</button>
+            <button class="btn-quiet" id="save-more" type="button" aria-expanded="false" aria-controls="save-more-panel">Choose a note</button>
+          </div>
+          <div id="save-more-panel" hidden>
+          <fieldset class="where" id="note-where">
+            <legend>Where should this go?</legend>
+            <label class="pick">
+              <input type="radio" name="note-target" value="new" checked>
+              <span>New note</span>
+            </label>
+            <label class="pick">
+              <input type="radio" name="note-target" value="existing">
+              <span>Add to a note</span>
+            </label>
+          </fieldset>
+          <div id="note-new-fields">
+            <label class="field-label" for="note-name">Note name</label>
+            <input id="note-name" class="note-name" type="text" maxlength="80" autocomplete="off" placeholder="Deque memory, Week 04">
+          </div>
+          <div id="note-existing-fields" hidden>
+            <label class="field-label" for="note-pick">Note</label>
+            <select id="note-pick" class="note-name"></select>
+            <p class="hint" id="note-target-empty" hidden>No notes yet. Save a new one first.</p>
+          </div>
+          <fieldset class="picks">
+            <legend>Choose what to save</legend>
+            <label class="pick" for="note-include-question">
+              <input id="note-include-question" type="checkbox" checked>
+              <span>Your question</span>
+            </label>
+            <div id="note-step-picks"></div>
+          </fieldset>
+          <p class="form-error" id="note-error" role="alert" hidden></p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="screen page-screen" id="notes-page" hidden aria-labelledby="notes-page-title">
+      <div class="page-col note-empty" id="notes-empty">
+        <h1 id="notes-page-title" tabindex="-1">Notes</h1>
+        <p class="lede">Pick one from the side, or start a page.</p>
+        <button class="btn-primary" id="new-note" type="button">New note</button>
+      </div>
+      <div class="page-col" id="note-library"></div>
+    </section>
+
+    <section class="screen page-screen" id="deeper-page" hidden aria-labelledby="deeper-title">
+      <div class="page-head">
+        <h1 id="deeper-title" tabindex="-1"></h1>
+        <p class="lede" id="deeper-lead" hidden>A starting point from the Week 04 lecture.</p>
+      </div>
+      <div class="page-col" id="deeper-body"></div>
+      <form class="deeper-inline page-col" id="deeper-follow">
+        <label class="field-label" for="deeper-follow-ask">Go deeper</label>
+        <div class="deeper-inline-row">
+          <textarea id="deeper-follow-ask" rows="1" maxlength="400" placeholder="Ask the next thing…"></textarea>
+          <button class="btn-primary btn-small" type="submit">Answer in a new tab</button>
+        </div>
+        <p class="form-error" id="deeper-follow-error" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="screen page-screen" id="history-page" hidden aria-labelledby="history-page-title">
+      <div class="page-head">
+        <h1 id="history-page-title" tabindex="-1">History</h1>
+        <p class="lede">Go back to an earlier point if you change your mind.</p>
+        <label class="history-search-label" for="history-search">Search history</label>
+        <input id="history-search" class="history-search" type="search" placeholder="Search history" autocomplete="off">
+      </div>
+      <div class="page-col history-page" id="history-list"></div>
+      <p class="menu-empty" id="history-empty">Each change in an explanation is kept here.</p>
+    </section>
+  </main>
+
+      <footer class="site-footer">Designed for learning. Your lecturer remains the source of truth.</footer>
+    </div>
+  </div>
+  <div class="sr-only" id="live" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
