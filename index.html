@@ -62,6 +62,7 @@
               <svg viewBox="0 0 24 24"><path fill="currentColor" d="M11 16V7.83L8.41 10.4 7 9l5-5 5 5-1.41 1.41L13 7.83V16h-2zm-6 4h14v-2H5v2z"/></svg>
             </div>
             <h2>Upload lecture notes or text here</h2>
+            <p class="demo-note">This is a demo. A file is not uploaded or read.</p>
             <p class="drop-help">Drag and drop a file, paste with Ctrl or Cmd + V, or browse from your device.</p>
           </div>
           <div class="drop-filled">
@@ -91,7 +92,7 @@
         </div>
 
         <div class="action-row">
-          <p>No grades, no pressure. Add your material to begin a guided explanation.</p>
+          <p>No grades, no pressure. Build opens the sample Week 04 queues question.</p>
           <button class="btn-primary" id="build" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z"/></svg>
             Build my explanation
@@ -116,7 +117,7 @@
           </span>
         </div>
         <blockquote class="asked">
-          <p class="kicker">Your question</p>
+          <p class="kicker">Sample question</p>
           <p class="js-question"></p>
         </blockquote>
 
@@ -178,6 +179,8 @@
         <p class="own-note" id="own-note" hidden>These steps are the sample queues walkthrough, so Inspect and Flag can be tried on a known lecture.</p>
         <p class="step-progress" id="step-progress" hidden>Your question</p>
         <article class="step question-card is-current" id="question-card">
+          <p class="kicker">Sample question</p>
+          <p class="demo-line">Set for this demo. It is not taken from a file.</p>
           <h1 class="question-text js-question" id="explain-title" tabindex="-1"></h1>
           <div class="step-gate" id="question-gate">
             <button class="btn-primary btn-small" id="question-continue" type="button">See the answer</button>

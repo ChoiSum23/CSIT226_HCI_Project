@@ -284,7 +284,7 @@ function stageDelay() {
 
 function metaFor(item) {
   if (!item || item.sample || item.kind === "sample") {
-    return "3 slides · Queue processing · Week 04";
+    return "Sample lecture · Week 04 queues";
   }
   if (item.kind === "pasted") return "Pasted text · Queue processing · Week 04";
   return "Uploaded file · Queue processing · Week 04";
@@ -356,24 +356,11 @@ function clearError() {
   fileError.textContent = "";
 }
 
-function acceptFile(file) {
-  const ok = /\.(pdf|pptx|png|jpe?g)$/i.test(file.name);
-  if (!ok) {
-    showError("Use a PDF, PPTX, PNG, or JPG.");
-    return;
-  }
-  if (file.size > 200 * 1024 * 1024) {
-    showError("That file is over 200 MB.");
-    return;
-  }
-  clearError();
-  material = {
-    name: file.name,
-    kind: "file",
-    sample: /^cs201_queues\.pdf$/i.test(file.name),
-  };
+function acceptFile() {
+  material = null;
   paintMaterial();
-  live(`Added ${file.name}.`);
+  showError("This is a demo. That file was not uploaded or read.");
+  live("This is a demo. The file was not read.");
 }
 
 function setDepth(next) {
@@ -837,15 +824,10 @@ window.addEventListener("paste", (event) => {
   const text = event.clipboardData?.getData("text")?.trim();
   if (!text) return;
   event.preventDefault();
-  clearError();
-  material = {
-    name: "Pasted notes",
-    kind: "pasted",
-    sample: false,
-    excerpt: text.slice(0, 220),
-  };
+  material = null;
   paintMaterial();
-  live("Pasted notes added.");
+  showError("This is a demo. Pasted notes are not read.");
+  live("This is a demo. Pasted notes were not read.");
 });
 
 depthButtons.forEach((button) => {

@@ -685,6 +685,22 @@ h1:focus-visible {
 
 .btn-choose:hover { border-color: #b7c6c0; background: #fbfcfb; }
 
+.demo-note {
+  margin: 12px auto 0;
+  max-width: 34ch;
+  color: var(--accent-text);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.demo-line {
+  margin: 4px 0 14px;
+  color: var(--fine);
+  font-size: 14.5px;
+  line-height: 1.4;
+}
+
 .fine {
   margin: 16px 0 0;
   color: var(--fine);
