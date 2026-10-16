@@ -1702,9 +1702,13 @@ const saveMore = document.getElementById("save-more");
 const saveMorePanel = document.getElementById("save-more-panel");
 saveMore.addEventListener("click", () => {
   const open = saveMorePanel.hidden;
-  saveMorePanel.hidden = !open;
+  
+  saveBar.classList.toggle("is-panel-open", open);
   saveMore.setAttribute("aria-expanded", open ? "true" : "false");
+  
   if (open) {
+    saveMorePanel.classList.remove("is-closing");
+    saveMorePanel.hidden = false;
     animateIn(saveMorePanel);
     renderNotePicks();
     if (loadNotes().length) {
@@ -1712,6 +1716,12 @@ saveMore.addEventListener("click", () => {
       if (existing) existing.checked = true;
     }
     syncNoteTarget();
+  } else {
+    saveMorePanel.classList.add("is-closing");
+    setTimeout(() => {
+      saveMorePanel.hidden = true;
+      saveMorePanel.classList.remove("is-closing");
+    }, 250);
   }
 });
 

@@ -1335,7 +1335,35 @@ h1.question-text,
 
 .notes-composer .btn-quiet { margin-top: 0; }
 
-#save-more-panel { margin-top: 14px; }
+#save-more-panel {
+  position: absolute;
+  bottom: -1px;
+  left: calc(100% + 20px);
+  width: 360px;
+  background: #fff;
+  border: 1px solid rgba(34, 89, 76, 0.16);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 32px rgba(22, 61, 53, 0.08);
+  z-index: 10;
+  animation: savePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  transform-origin: left bottom;
+}
+
+#save-more-panel.is-closing {
+  animation: saveClose 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  pointer-events: none;
+}
+
+@keyframes savePop {
+  0% { opacity: 0; transform: translateX(-20px) scale(0.95); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes saveClose {
+  0% { opacity: 1; transform: translateX(0) scale(1); }
+  100% { opacity: 0; transform: translateX(-20px) scale(0.95); }
+}
 
 .question-card .hint { margin-top: 10px; }
 
@@ -1370,11 +1398,17 @@ h1.question-text,
 .step-gate .hint { margin: 0; max-width: 36ch; }
 
 .notes-composer {
+  position: relative;
   margin-top: 22px;
   background: #fff;
   border: 1px solid rgba(34, 89, 76, 0.14);
   border-radius: 18px;
   padding: 18px 18px 16px;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.notes-composer.is-panel-open {
+  transform: translateX(-40px) scale(0.97);
 }
 
 .notes-composer h2,
@@ -1659,19 +1693,30 @@ textarea {
 }
 
 @media (max-width: 1400px) {
-  .step.is-flag-open {
+  .step.is-flag-open,
+  .notes-composer.is-panel-open {
     transform: none;
   }
   
-  .flag-form {
+  .flag-form,
+  #save-more-panel {
     position: static;
     width: 100%;
     margin-top: 16px;
+    padding: 14px 16px 16px;
+    border: none;
     box-shadow: none;
     animation: chatPopMobile 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     transform-origin: top center;
   }
-  .flag-form.is-closing {
+
+  #save-more-panel {
+    border-top: 1px solid rgba(34, 89, 76, 0.12);
+    border-radius: 0;
+  }
+  
+  .flag-form.is-closing,
+  #save-more-panel.is-closing {
     animation: chatCloseMobile 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 }
