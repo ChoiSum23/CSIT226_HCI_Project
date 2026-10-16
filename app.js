@@ -1883,7 +1883,9 @@ pruneNoteTabs();
 renderNotesLibrary();
 renderHistory();
 
-if (!location.hash || location.hash === "#") {
+if (!location.hash || location.hash === "#" || location.hash === "#/") {
+  place = "home";
+  viewingStack = false;
   history.replaceState(null, "", "#/");
 }
 applyView(parseHash());
