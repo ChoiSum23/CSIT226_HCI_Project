@@ -235,7 +235,7 @@ let booted = false;
 let savedSnapshot = "";
 let unlockedThrough = 1;
 let stepsFinished = false;
-let questionPassed = false;
+let questionPassed = true;
 let startFresh = false;
 let historyEntries = [];
 let historyIndex = -1;
@@ -245,7 +245,7 @@ const TAB_TITLES = {
   notes: "Saved notes",
   history: "History",
 };
-let place = "learn";
+let place = "home";
 let viewingStack = false;
 let focusedStep = 0;
 let tabs = [];
@@ -563,7 +563,7 @@ function updateCard(id) {
   card.lockNote.hidden = !lockedStep;
   card.lockNote.textContent = lockedStep
     ? (questionPassed
-      ? `Opens after you continue from step ${unlockedThrough}.`
+      ? `Opens after you continue from step ${id - 1}.`
       : "Opens after you continue from your question.")
     : "";
 
@@ -590,7 +590,22 @@ function updateCard(id) {
   card.assumption.textContent = view.assumption;
   card.source.textContent = view.source;
 
-  card.form.hidden = lockedStep || !st.flag;
+  const showForm = !lockedStep && st.flag;
+  
+  card.root.classList.toggle("is-flag-open", showForm);
+  
+  if (showForm) {
+    card.form.classList.remove("is-closing");
+    card.form.hidden = false;
+  } else if (!card.form.hidden) {
+    card.form.classList.add("is-closing");
+    setTimeout(() => {
+      if (!state[id].flag || stepPhase(id) === "locked") {
+        card.form.hidden = true;
+        card.form.classList.remove("is-closing");
+      }
+    }, 250); 
+  }
   card.flagBtn.setAttribute("aria-expanded", st.flag ? "true" : "false");
   card.flagBtn.setAttribute("aria-pressed", st.flag ? "true" : "false");
   card.simpleBtn.setAttribute("aria-pressed", st.skin === "simpler" ? "true" : "false");
@@ -712,7 +727,7 @@ function mountExplanation(fresh) {
   cards.clear();
   if (fresh) {
     state = freshState();
-    questionPassed = false;
+    questionPassed = true;
     unlockedThrough = 1;
     stepsFinished = false;
     historyEntries = [];
@@ -1070,7 +1085,7 @@ function loadTabs() {
   } catch {
     tabs = [];
     activeTab = "";
-    place = "learn";
+    place = "home";
     viewingStack = false;
   }
 }
@@ -1125,11 +1140,13 @@ function syncShell() {
     ? "deeper-page"
     : stack?.kind === "explanation"
       ? "explanation"
-      : place === "notes"
-      ? "notes-page"
-      : place === "history"
-        ? "history-page"
-        : currentView;
+      : place === "home"
+        ? "home-page"
+        : place === "notes"
+        ? "notes-page"
+        : place === "history"
+          ? "history-page"
+          : currentView;
   document.querySelectorAll(".screen").forEach((screen) => {
     const show = screen.id === shownId;
     const wasHidden = screen.hidden;

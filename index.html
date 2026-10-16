@@ -15,13 +15,13 @@
 
   <div class="app-shell">
     <nav class="rail" aria-label="Menu">
-      <button class="rail-logo" id="rail-home" type="button" data-open-tab="learn" aria-label="Learning space">
-        <img src="assets/logo.png" alt="" width="32" height="40">
-      </button>
+      <button class="rail-logo" id="rail-home" type="button" data-open-tab="home" aria-label="Home — About InsightCoach">
+      <img src="assets/logo.png" alt="" width="32" height="40">
+</button>
       <span class="rail-rule" aria-hidden="true"></span>
-      <button class="rail-btn" type="button" data-open-tab="learn" aria-label="Learning space">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 3 10h2v9h5v-6h4v6h5v-9h2L12 3z"/></svg>
-      </button>
+      <button class="rail-btn" type="button" data-open-tab="home" aria-label="Home — About InsightCoach">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 3 10h2v9h5v-6h4v6h5v-9h2L12 3z"/></svg>
+</button>
       <button class="rail-btn" type="button" data-upload aria-label="Upload a file">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 16V7.83L8.41 10.4 7 9l5-5 5 5-1.41 1.41L13 7.83V16h-2zM5 18h14v2H5v-2z"/></svg>
       </button>
@@ -234,6 +234,65 @@
         </section>
       </div>
     </section>
+
+    <section class="screen page-screen" id="home-page" hidden aria-labelledby="home-hero-title">
+  <div class="home-hero">
+    <span class="eyebrow">Cognitive Study Companion</span>
+    <h1 id="home-hero-title">Where lecture notes become genuine understanding.</h1>
+    <p class="lede">
+      InsightCoach breaks complex slides, algorithms, and technical concepts into progressive, 
+      verifiable steps. Built for deep mastery without academic shortcuts.
+    </p>
+    <div class="home-cta-row">
+      <button class="btn-primary" type="button" data-upload>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 16V7.83L8.41 10.4 7 9l5-5 5 5-1.41 1.41L13 7.83V16h-2zM5 18h14v2H5v-2z"/></svg>
+        Analyze Course Material with InsightCoach
+      </button>
+    </div>
+  </div>
+
+  <div class="home-grid">
+    <article class="home-card">
+      <div class="home-card-icon">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="m9 16.17 7.88-7.88-1.41-1.42L9 13.34 5.53 9.87 4.12 11.29 9 16.17z"/></svg>
+      </div>
+      <h3>Progressive Scaffolding</h3>
+      <p>
+        No walls of text. Lessons unlock one step at a time, allowing you to absorb critical 
+        assumptions and operations before advancing forward.
+      </p>
+    </article>
+
+    <article class="home-card">
+      <div class="home-card-icon">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm0 8.7L4.5 8 12 4.3 19.5 8 12 11.7z"/></svg>
+      </div>
+      <h3>Tri-Depth Modes</h3>
+      <p>
+        Switch between Intuitive real-world analogies, Step-by-Step technical mechanics, 
+        or Formal mathematical rigor at any moment.
+      </p>
+    </article>
+
+    <article class="home-card">
+      <div class="home-card-icon">
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      </div>
+      <h3>Assumption Scrutiny</h3>
+      <p>
+        Every AI-generated step highlights its underlying assumptions and slide context. 
+        Flag ambiguities or request targeted rewrites in real time.
+      </p>
+    </article>
+  </div>
+
+  <div class="home-trust-banner">
+    <div class="home-trust-content">
+      <strong>Grounded in Pedagogy, Not Homework Shortcuts</strong>
+      <p>InsightCoach does not solve graded assignments or author submissions. Your professor and course slides remain the source of truth.</p>
+    </div>
+  </div>
+</section>
 
     <section class="screen page-screen" id="notes-page" hidden aria-labelledby="notes-page-title">
       <div class="page-col note-empty" id="notes-empty">
